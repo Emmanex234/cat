@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon's Cat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 680px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-img {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .profile p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .links {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .link {
+            position: relative;
+            width: 100%;
+            background-color: #EF4444;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .link-content {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            color: white;
+        }
+        .link-content span{
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .link-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .link-icon img{
+            width: 40px;
+        }
+        
+        .link-title {
+            flex-grow: 1;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .link-menu {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+        
+        .link a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .section-title {
+            align-self: center;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile">
+            <div class="profile-img">
+                <img src="/d13fcea5-4453-40ca-a43a-95c1f1c0e7ec_Simons-Cat-Logo-PNG.webp"/>
+            </div>
+            <h1>Simon's Cat</h1>
+            <p>One Cat. Billions of Owners!</p>
+        </div>
+        
+        <!-- Social Icons -->
+        <div class="social-icons">
+            <a href="#" class="social-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 2h-3.5l-2-2h-1l-2 2H5a2 2 0 00-2 2v16c0 1.1.9 2 2 2h14a2 2 0 002-2V4a2 2 0 00-2-2z"/>
+                    <path d="M6 9l4 4 8-8"/>
+                </svg>
+            </a>
+            <a href="#" class="social-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                    <line x1="9" y1="9" x2="9.01" y2="9"/>
+                    <line x1="15" y1="9" x2="15.01" y2="9"/>
+                </svg>
+            </a>
+        </div>
+        
+        <!-- Links Section -->
+        <div class="links">
+
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                       
+                    </div>
+                    <span class="link-title">JOIN AIRDROP</span>
+                    
+                </div>
+                <a href="/simons-cat-token-airdrop.html"></a>
+            </div>
+            <!-- CoinMarketCap -->
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                       <img src="/03b1e6f3-2da4-43a2-82e8-ae63a77ecd0a_cmc.webp"/>
+                    </div>
+                    <span class="link-title">Simon's Cat CoinMarketCap</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            
+            <!-- CoinGecko -->
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="/b3626ede-3c55-42b8-84e9-5e489bb345ae_cg.webp"/>
+                     </div>
+                    <span class="link-title">Simon's Cat CoinGecko</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            
+            <!-- EXCHANGES Section -->
+            <h2 class="section-title">EXCHANGES</h2>
+            
+            <!-- Binance -->
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="/Binance.webp"/>
+                    </div>
+                    <span class="link-title">Binance</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="/okx-white.webp"/>
+                    </div>
+                    <span class="link-title">OKX(SPOT)</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="https://ugc.production.linktr.ee/1effae87-d658-4dcd-b80d-bc05c49b2c3f_bybit-white.png?io=true&size=thumbnail-stack-v1_0"/>
+                    </div>
+                    <span class="link-title">Bybit</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="/okx-white.webp"/>
+                    </div>
+                    <span class="link-title">OKX(PREPS)</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="https://ugc.production.linktr.ee/31e7b1f4-3bd8-4867-a376-c56c44aa68f9_pcs.png?io=true&size=thumbnail-stack-v1_0"/>
+                    </div>
+                    <span class="link-title">Pancakeswap</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="https://ugc.production.linktr.ee/845d7949-be39-4317-90f3-ba388d1abcb9_gate.png?io=true&size=thumbnail-stack-v1_0"/>
+                    </div>
+                    <span class="link-title">Gate</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="https://ugc.production.linktr.ee/c52c4c93-8eda-495d-8753-9cf88c8e8563_huobi-white.png?io=true&size=thumbnail-stack-v1_0"/>
+                    </div>
+                    <span class="link-title">HTX</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="https://ugc.production.linktr.ee/0b6fce93-f6c3-4d8a-9bdb-c7cb30b9f459_kucoin.png?io=true&size=thumbnail-stack-v1_0"/>
+                    </div>
+                    <span class="link-title">Kucoin</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="https://ugc.production.linktr.ee/420e5a77-f343-4800-a39d-7c4870328947_mexc.png?io=true&size=thumbnail-stack-v1_0"/>
+                    </div>
+                    <span class="link-title">MECX</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="https://ugc.production.linktr.ee/359bf813-a91b-4d41-b18e-e489974544d7_uphold-white.png?io=true&size=thumbnail-stack-v1_0"/>
+                    </div>
+                    <span class="link-title">Uphold(US Market)</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+            <div class="link">
+                <div class="link-content">
+                    <div class="link-icon">
+                        <img src="https://ugc.production.linktr.ee/755e744c-abb6-4613-b577-68e184594e15_bitvavo-white.png?io=true&size=thumbnail-stack-v1_0"/>
+                    </div>
+                    <span class="link-title">Bitvano (EUR Market)</span>
+                    <button class="link-menu">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="1"/>
+                            <circle cx="12" cy="5" r="1"/>
+                            <circle cx="12" cy="19" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#"></a>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
