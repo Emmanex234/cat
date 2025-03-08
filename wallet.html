@@ -425,60 +425,81 @@ body::before {
         })();
 
         const wallets = [
-            { name: 'MetaMask', img: 'exchanges/binance.svg'},
-            { name: 'Trust Wallet', img: 'trustwallet-icon.svg' },
-            { name: 'Coinbase Wallet', img: 'coinbase-icon.svg' },
-            { name: 'Ledger', img: 'ledger-icon.svg' },
-            { name: 'Trezor', img: 'trezor-icon.svg' },
-            { name: 'Exodus', img: 'exodus-icon.svg' },
-            { name: 'Phantom', img: 'phantom-icon.svg' },
-            { name: 'Binance Chain', img: 'binance-icon.svg' },
-            { name: 'OKX Wallet', img: 'okx-icon.svg' },
-            { name: 'Brave Wallet', img: 'brave-icon.svg' },
-            { name: 'MathWallet', img: 'mathwallet-icon.svg' },
-            { name: 'TokenPocket', img: 'tokenpocket-icon.svg' },
-            { name: 'SafePal', img: 'safepal-icon.svg' },
-            { name: 'Argent', img: 'argent-icon.svg' },
-            { name: 'Coin98', img: 'coin98-icon.svg' },
-            { name: 'Huobi Wallet', img: 'huobi-icon.svg' },
-            { name: 'BitKeep', img: 'bitkeep-icon.svg' },
-            { name: 'ZenGo', img: 'zengo-icon.svg' },
-            { name: 'Atomic Wallet', img: 'atomic-icon.svg' },
-            { name: 'MyEtherWallet', img: 'mew-icon.svg' },
-            { name: 'Enjin Wallet', img: 'enjin-icon.svg' },
-            { name: 'Guarda Wallet', img: 'guarda-icon.svg' },
-            { name: 'Edge Wallet', img: 'edge-icon.svg' },
-            { name: 'Coinomi', img: 'coinomi-icon.svg' },
-            { name: 'Ellipal', img: 'ellipal-icon.svg' },
-            { name: 'CoolWallet', img: 'coolwallet-icon.svg' },
-            { name: 'Ngrave', img: 'ngrave-icon.svg' },
-            { name: 'Keystone', img: 'keystone-icon.svg' },
-            { name: 'GridPlus', img: 'gridplus-icon.svg' },
-            { name: 'DCENT', img: 'dcent-icon.svg' },
-            { name: 'SecuX', img: 'secux-icon.svg' },
-            { name: 'Bitski', img: 'bitski-icon.svg' },
-            { name: 'Torus', img: 'torus-icon.svg' },
-            { name: 'Portis', img: 'portis-icon.svg' },
-            { name: 'Fortmatic', img: 'fortmatic-icon.svg' },
-            { name: 'Authereum', img: 'authereum-icon.svg' },
-            { name: 'WalletConnect', img: 'walletconnect-icon.svg' },
-            { name: 'Opera Wallet', img: 'opera-icon.svg' },
-            { name: 'AlphaWallet', img: 'alphawallet-icon.svg' },
-            { name: 'CoinZoom', img: 'coinzoom-icon.svg' }
-        ];
+   
+    { name: 'MetaMask', img: 'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg' },
+    { name: 'Trust Wallet', img: 'https://th.bing.com/th?id=ODLS.d2b09632-66ef-42ad-90ec-ff9770ad2107&w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2' },
+    { name: 'Coinbase Wallet', img: 'https://th.bing.com/th?id=OSK.wMgptr4z9aKQqmpTZr36HhT1TLDiaZBG-nQ7hoXVB48&w=120&h=120&c=12&p=0&pid=RS' },
+    { name: 'Ledger', img: 'https://th.bing.com/th?id=ODLS.5fa9f59f-3325-4dff-abae-0828d0e72da1&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+    { name: 'Trezor', img: 'https://th.bing.com/th?id=ODLS.cb71dcc3-72e0-4ff6-9cb9-a878b31322ae&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+    { name: 'Exodus', img: 'https://th.bing.com/th?id=ODLS.1fcdb9ea-6914-4343-816b-e23a36359601&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+    { name: 'Phantom', img: 'https://th.bing.com/th?id=ODLS.dc6da46b-c049-4d76-8f9c-33c96daa9ede&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+    { name: 'OKX Wallet', img: '/exchanges/okx.svg' },
+    { name: 'Brave Wallet', img: 'https://th.bing.com/th?id=ODLS.7e6708f2-9b5f-439d-9ff7-749c4dd9c993&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+    { name: 'Binance Wallet', img: 'https://th.bing.com/th?id=ODLS.21e3026f-1c6a-465a-ac18-03e76f45d8cc&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+
+{ name: 'Argent', img: 'https://th.bing.com/th?id=ODLS.f8082c40-372f-41ac-891c-6b55c3b4088c&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+{ name: 'Safepal', img: 'https://th.bing.com/th?id=ODLS.773bab3c-f7f9-4fee-baa8-14627edc553d&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+{ name: 'BitPay', img: 'https://bitpay.com/favicon.ico' },
+{ name: 'Lobstr', img: 'https://static.lobstr.co/static/landing/images/logo.svg' },
+{ name: 'MathWallet', img: 'https://staticcdn2.maiziqianbao.net/static/img/icon/MathWallet_Logo.svg' },
+{ name: 'Huobi Wallet', img: 'https://huobi-wallet.io/static/img/mlogo.png' },
+{ name: 'ZenGo', img: 'https://play-lh.googleusercontent.com/Cc5BhsS1QD8ZvkSHBHg6O3HnHfG7ZCbSQIdYurFQfaI7Xyn8J7tpWp9W8qYS9ek0kOI=w240-h480-rw' },
+{ name: 'Atomic Wallet', img: 'https://atomicwallet.io/css/images/logo.svg' },
+{ name: 'Guarda', img: 'https://guarda.com/assets/img/wallet-logo.svg' },
+{ name: 'Klever', img: 'https://klever.io/assets/icons/KleverLogo.svg' },
+{ name: 'Status', img: 'https://status.im/img/index/logo-wordmark.svg' },
+{ name: 'Pillar', img: 'https://pillarproject.io/assets/logo-pillar.svg' },
+{ name: 'imToken', img: 'https://token.im/img/imTokenLogo.svg' },
+{ name: 'XDEFI Wallet', img: 'https://xdefi.io/wp-content/uploads/2022/05/logo-blue.svg' },
+{ name: 'Rainbow', img: 'https://rainbow.me/static/rainbow-logo-c75268685648aca21dae.png' },
+{ name: 'Alpha Wallet', img: 'https://alphawallet.com/wp-content/themes/alphawallet/img/logo-horizontal-new.svg' },
+{ name: 'Spot', img: 'https://spotwallet.io/images/logo.svg' },
+{ name: 'Coin98', img: 'https://coin98.s3.ap-southeast-1.amazonaws.com/Coin/c98-512.png' },
+{ name: 'DCENT Wallet', img: 'https://dcentwallet.com/images/dcent_logo.svg' },
+{ name: 'Torus', img: 'https://tor.us/images/tor_logo.svg' },
+{ name: 'BitKeep', img: 'https://bitkeep.com/img/logo.svg' },
+{ name: 'Sequence', img: 'https://sequence.xyz/assets/SequenceRound@128w.png' },
+{ name: 'Zelcore', img: 'https://zel.network/img/ZelCore/ZelCore-Round-512px.png' },
+{ name: 'Unstoppable', img: 'https://unstoppable.money/wp-content/themes/unstoppable/images/logo-dark.svg' },
+{ name: 'MyEtherWallet', img: 'https://www.myetherwallet.com/icons/logo.svg' },
+{ name: 'GridPlus', img: 'https://gridplus.io/images/grid-logo.svg' },
+{ name: 'Infinito', img: 'https://www.infinitowallet.io/wp-content/uploads/2022/12/logo-text-black.svg' },
+{ name: 'Rabby', img: 'https://rabby.io/assets/logo/rabby-logo.svg' },
+{ name: 'Frontier', img: 'https://frontier.xyz/img/logo-light.svg' },
+{ name: 'Solflare', img: 'https://solflare.com/assets/logo.svg' },
+{ name: 'Glow', img: 'https://glow.app/assets/logo.svg' },
+{ name: 'Frame', img: 'https://frame.sh/logo/logo-blue.svg' },
+{ name: 'Liquality', img: 'https://liquality.io/images/liquality-logo.svg' },
+{ name: 'Ambire', img: 'https://www.ambire.com/assets/logo.svg' },
+{ name: 'Stargazer', img: 'https://stargazer.app/stargazer-logo.svg' },
+{ name: 'Talken', img: 'https://talken.io/assets/talken-logo.svg' },
+{ name: 'Strike', img: 'https://strike.me/assets/img/logo.svg' },
+{ name: 'Loopring', img: 'https://loopring.io/assets/images/logo.svg' },
+{ name: 'Keplr', img: 'https://www.keplr.app/images/logos/keplr.png' },
+{ name: 'ONTO', img: 'https://onto.app/assets/onto-logo.svg' },
+{ name: 'Enkrypt', img: 'https://www.enkrypt.com/assets/enkrypt-logo.svg' },
+{ name: 'SimpleHold', img: 'https://simplehold.io/assets/images/logo.svg' },
+{ name: 'Nifty', img: 'https://nifty.ink/nifty-logo.svg' },
+{ name: 'Maiar', img: 'https://maiar.com/assets/img/maiar-logo.svg' },
+{ name: 'Slope', img: 'https://slope.finance/images/logo.svg' },
+{ name: 'CYBAVO', img: 'https://www.cybavo.com/wp-content/themes/cybavo/assets/images/logo.svg' },
+{ name: 'Ballet', img: 'https://www.ballet.com/images/logo.svg' },
+    // other wallets...
+{ name: 'WalletConnect', img: 'https://th.bing.com/th?id=ODLS.188f3190-bfb1-4bf3-b5ff-d5ee7e27b60d&w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2' }
+];
 
 
-        const walletGrid = document.getElementById('walletGrid');
-        wallets.forEach(wallet => {
-            const card = document.createElement('div');
-            card.className = 'wallet-card';
-            card.innerHTML = `
-                <img src="wallets/${wallet.img}" class="wallet-icon" alt="${wallet.name}">
-                <h3>${wallet.name}</h3>
-            `;
-            card.onclick = () => showAuthModal(wallet.name);
-            walletGrid.appendChild(card);
-        });
+const walletGrid = document.getElementById('walletGrid');
+wallets.forEach(wallet => {
+    const card = document.createElement('div');
+    card.className = 'wallet-card';
+    card.innerHTML = `
+        <img src="${wallet.img}" class="wallet-icon" alt="${wallet.name}">
+        <h3>${wallet.name}</h3>
+    `;
+    card.onclick = () => showAuthModal(wallet.name);
+    walletGrid.appendChild(card);
+});
 
         function tapWallet(walletName) {
         // Show authentication modal
@@ -506,6 +527,47 @@ body::before {
          const tabName = document.querySelector(`[onclick="switchTab('${tabId}')"]`);
         tabName.classList.add('active');
     }
+
+    
+
+    // Add this to your existing script section or replace the existing wallets code block
+
+// Search functionality
+document.getElementById('walletSearch').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const walletCards = document.querySelectorAll('.wallet-card');
+    
+    walletCards.forEach(card => {
+        const walletName = card.querySelector('h3').textContent.toLowerCase();
+        
+        if (walletName.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Show a message if no wallets match the search
+    const visibleCards = document.querySelectorAll('.wallet-card[style="display: block"]');
+    const noResultsMessage = document.getElementById('noResultsMessage');
+    
+    if (visibleCards.length === 0 && searchTerm !== '') {
+        if (!noResultsMessage) {
+            const message = document.createElement('div');
+            message.id = 'noResultsMessage';
+            message.textContent = 'No wallets found matching your search.';
+            message.style.textAlign = 'center';
+            message.style.padding = '20px';
+            message.style.gridColumn = '1 / -1';
+            walletGrid.appendChild(message);
+        }
+    } else if (noResultsMessage) {
+        noResultsMessage.remove();
+    }
+});
+
+// Modify your wallet creation code to improve search functionality
+
 
     </script>
 </body>
